@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+* html, * body {
+    background: linear-gradient(90deg, #343a40 0%, #343a40 100%);
+    position: relative;
+}
+
+* #currencyDenomination {
+    margin-top: 100px;
+    z-index: 1;
+    background-color: white;
+}
+
+* #currencyDenominationHeader {
+    background-color: black;
+    color: white;
+    width: 100%;
+}
+
+* .error {
+    color: red;
+}
+
