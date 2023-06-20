@@ -18,7 +18,7 @@ class Connection
     public function getPDO(): PDO
     {
         try {
-            $pdo = new PDO("mysql:host=$this->hostname;dbname=$this->database, $this->username, $this->password");
+            $pdo = new PDO("mysql:host=$this->hostname;dbname=$this->database", $this->username, $this->password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $pdo;
         } catch (PDOException $exception) {
