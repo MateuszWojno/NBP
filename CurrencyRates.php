@@ -1,18 +1,17 @@
 <?php
 
-
 require_once 'src/autoload.php';
 
 use NBP\Application\FetchData;
 use NBP\Persistence\ConnectionString;
 use NBP\Persistence\CredentialsFile;
+use NBP\Persistence\Database\CurrencyRateReadRepository;
 use NBP\View\View;
-
 
 $string = new ConnectionString(new CredentialsFile("connection.txt"));
 $pdo = $string->getPdo();
 
-function getView(FetchData $fetchData): View
+function getView(FetchData $fetchData, CurrencyRateReadRepository $currencyRateReadRepository): View
 {
 
     if ($fetchData->isCurrencyTableEmpty() === true) {
@@ -20,12 +19,14 @@ function getView(FetchData $fetchData): View
     } else {
         $fetchData->updateData();
     }
+    $currencyRates = $currencyRateReadRepository->fetchCurrencyRates();
     return new View('src/NBP/View/pages/currencyRates.phtml', [
+        'currencyRates' => $currencyRates,
     ]);
 
 }
 
-$getView = getView(new FetchData($pdo));
+$getView = getView(new FetchData($pdo), new CurrencyRateReadRepository($pdo));
 $getView->render();
 
 
