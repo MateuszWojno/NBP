@@ -6,12 +6,13 @@ require_once 'src/autoload.php';
 use NBP\Application\FetchData;
 use NBP\Persistence\ConnectionString;
 use NBP\Persistence\CredentialsFile;
+use NBP\View\View;
 
 
 $string = new ConnectionString(new CredentialsFile("connection.txt"));
 $pdo = $string->getPdo();
 
-function getView(FetchData $fetchData)
+function getView(FetchData $fetchData): View
 {
 
     if ($fetchData->isCurrencyTableEmpty() === true) {
@@ -19,6 +20,8 @@ function getView(FetchData $fetchData)
     } else {
         $fetchData->updateData();
     }
+    return new View('src/NBP/View/pages/currencyRates.phtml', [
+    ]);
 
 }
 
