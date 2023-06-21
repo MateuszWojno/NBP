@@ -19,7 +19,7 @@ class FetchNBPApi
         return $data;
     }
 
-    public function insertData($data): void
+    public function insertData(array $data): void
     {
         $rates = $data[0]['rates'];
 
@@ -37,7 +37,7 @@ class FetchNBPApi
         }
     }
 
-    public function updateData($data): void
+    public function updateData(array $data): void
     {
         $rates = $data[0]['rates'];
 
@@ -53,7 +53,7 @@ class FetchNBPApi
         }
     }
 
-    public function isCurrencyTableEmpty()
+    public function isCurrencyTableEmpty(): bool
     {
         $query = "SELECT COUNT(*) FROM currency";
         $stmt = $this->pdo->prepare($query);
