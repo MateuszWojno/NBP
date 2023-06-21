@@ -21,6 +21,11 @@ class CurrencyDenominationRequest
         return $this->postAttributes['targetCurrency'];
     }
 
+    public function amount(): string
+    {
+        return $this->postAttributes['amount'];
+    }
+
     public function isConvert(): bool
     {
         return isset($this->postAttributes['convert']);
