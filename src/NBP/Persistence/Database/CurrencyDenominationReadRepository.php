@@ -13,7 +13,7 @@ class CurrencyDenominationReadRepository
 
     public function fetchCurrencyRates(): array
     {
-        $query = $this->pdo->prepare("SELECT * FROM currencyDenomination");
+        $query = $this->pdo->prepare("SELECT * FROM currencyDenomination ORDER BY id DESC LIMIT 10");
         $query->execute();
 
         $allCurrencydenomination = [];
