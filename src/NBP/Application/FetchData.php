@@ -6,56 +6,50 @@ use PDO;
 
 class FetchData
 {
+    protected $baseUrl = 'http://api.nbp.pl/api/exchangerates/tables/A';
 
     public function __construct(private PDO $pdo)
     {
     }
 
-    public function insertData()
+    public function getDataFromAPI(): array
     {
-        $url = 'http://api.nbp.pl/api/exchangerates/tables/A';
-        $json = file_get_contents($url);
+        $json = file_get_contents($this->baseUrl);
         $data = json_decode($json, true);
+        return $data;
+    }
 
-        if (!empty($data) && is_array($data)) {
-            $rates = $data[0]['rates'];
+    public function insertData($data): void
+    {
+        $rates = $data[0]['rates'];
 
-            foreach ($rates as $rate) {
-                $currency = $rate['currency'];
-                $code = $rate['code'];
-                $mid = $rate['mid'];
+        foreach ($rates as $rate) {
+            $currency = $rate['currency'];
+            $code = $rate['code'];
+            $mid = $rate['mid'];
 
-                $query = "INSERT INTO currency (currency, code, mid) VALUES (?, ?, ?)";
-                $stmt = $this->pdo->prepare($query);
-                $stmt->execute([$currency, $code, $mid]);
-            }
-
-            echo 'Dane zostały pobrane i zapisane w bazie danych.';
-        } else {
-            echo 'Nie udało się pobrać danych z API.';
+            $query = "INSERT INTO currency (currency, code, mid) VALUES (:currency, :code, :mid)";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindParam('currency', $currency, PDO::PARAM_STR);
+            $stmt->bindParam('code', $code, PDO::PARAM_STR);
+            $stmt->bindParam('mid', $mid, PDO::PARAM_STR);
+            $stmt->execute();
         }
     }
 
-    public function updateData()
+    public function updateData($data): void
     {
-        $url = 'http://api.nbp.pl/api/exchangerates/tables/A';
-        $json = file_get_contents($url);
-        $data = json_decode($json, true);
+        $rates = $data[0]['rates'];
 
-        // Sprawdzenie, czy pobrano dane
-        if (!empty($data) && is_array($data)) {
-            // Pobranie informacji o kursach walut
-            $rates = $data[0]['rates'];
+        foreach ($rates as $rate) {
+            $code = $rate['code'];
+            $mid = $rate['mid'];
 
-            foreach ($rates as $rate) {
-                $currency = $rate['currency'];
-                $code = $rate['code'];
-                $mid = $rate['mid'];
-
-                $query = "UPDATE currency SET mid = ? WHERE code = ?";
-                $stmt = $this->pdo->prepare($query);
-                $stmt->execute([$mid, $code]);
-            }
+            $query = "UPDATE currency SET mid = :mid WHERE code = :code";
+            $stmt = $this->pdo->prepare($query);
+            $stmt->bindParam('mid', $mid, PDO::PARAM_STR);
+            $stmt->bindParam('code', $code, PDO::PARAM_STR);
+            $stmt->execute();
         }
     }
 
