@@ -19,7 +19,9 @@
     <script type="text/javascript" src="jquery.validate.min.js"></script>
 </head>
 <body>
-
+<nav>
+    <a href="currencyRates.php" class="btn btn-warning fixed-top ml-2 mt-2" style="width: 200px;">Back</a>
+</nav>
 <main>
     <div class=" col-12 col-sm-8 col-md-6 col-lg-4 col-xl-3 mx-auto bg-light" id="currencyDenomination">
         <div class="row">
@@ -37,7 +39,7 @@
                 <div class="form-group col-xl-12 text-light input-icons">
                     <select class="browser-default custom-select border border-dark" name="startingCurrency">
                         <?php foreach ($this->currencyRates as $currencyRate): ?>
-                            <option value="<?= $currencyRate->mid. '|' . $currencyRate->currency ?>"><?= $currencyRate->currency; ?></option>
+                            <option value="<?= $currencyRate->mid . '|' . $currencyRate->currency ?>"><?= $currencyRate->currency; ?></option>
                         <?php endforeach; ?>
                     </select>
                     <span class="error">
@@ -53,7 +55,7 @@
                 <div class="form-group col-xl-12 text-light input-icons">
                     <select class="browser-default custom-select border border-dark" name="targetCurrency">
                         <?php foreach ($this->currencyRates as $currencyRate): ?>
-                            <option value="<?= $currencyRate->mid. '|' . $currencyRate->currency ?>"><?= $currencyRate->currency; ?></option>
+                            <option value="<?= $currencyRate->mid . '|' . $currencyRate->currency ?>"><?= $currencyRate->currency; ?></option>
                         <?php endforeach; ?>
                     </select>
                     <span class="error">
@@ -80,16 +82,16 @@
             </div>
         </form>
         <div class="success">
-                <div class="row">
-                    <div class="col-12 text-dark">
-                        <label>Result:</label>
-                    </div>
+            <div class="row">
+                <div class="col-12 text-dark">
+                    <label>Result:</label>
                 </div>
-                <div class="row">
-                    <div class="col-12 text-light">
-                        <?= htmlspecialchars($this->result); ?>
-                    </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-light">
+                    <?= htmlspecialchars($this->result); ?>
                 </div>
+            </div>
         </div>
     </div>
 </main>

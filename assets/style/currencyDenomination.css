@@ -25,3 +25,8 @@
     color: red;
 }
 
+.fixed-top {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
