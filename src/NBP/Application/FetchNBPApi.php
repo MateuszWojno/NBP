@@ -4,7 +4,7 @@ namespace NBP\Application;
 
 use PDO;
 
-class FetchData
+class FetchNBPApi
 {
     protected $baseUrl = 'http://api.nbp.pl/api/exchangerates/tables/A';
 
