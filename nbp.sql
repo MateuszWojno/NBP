@@ -7,9 +7,11 @@
 -- Wersja serwera: 10.4.21-MariaDB
 -- Wersja PHP: 8.0.12
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET
+SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
-SET time_zone = "+00:00";
+SET
+time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -27,12 +29,28 @@ SET time_zone = "+00:00";
 -- Struktura tabeli dla tabeli `currency`
 --
 
-CREATE TABLE `currency` (
-  `id` int(11) NOT NULL,
-  `currency` varchar(100) NOT NULL,
-  `code` tinytext NOT NULL,
-  `mid` float NOT NULL
+CREATE TABLE `currency`
+(
+    `id`       int(11) NOT NULL,
+    `currency` varchar(100) NOT NULL,
+    `code`     tinytext     NOT NULL,
+    `mid`      float        NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+--
+-- Struktura tabeli dla tabeli `currencyDenomination`
+--
+
+CREATE TABLE `currencyDenomination`
+(
+    `id`               int(11) NOT NULL,
+    `startingCurrency` varchar(100) NOT NULL,
+    `targetCurrency`   varchar(100) NOT NULL,
+    `amount`           float        NOT NULL,
+    `date`             DATE         NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 --
 -- Indeksy dla zrzutów tabel
@@ -42,7 +60,14 @@ CREATE TABLE `currency` (
 -- Indeksy dla tabeli `currency`
 --
 ALTER TABLE `currency`
-  ADD PRIMARY KEY (`id`);
+    ADD PRIMARY KEY (`id`);
+
+
+--
+-- Indeksy dla tabeli `currencyDenomination`
+--
+ALTER TABLE `currencyDenomination`
+    ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT dla zrzuconych tabel
@@ -52,7 +77,14 @@ ALTER TABLE `currency`
 -- AUTO_INCREMENT dla tabeli `currency`
 --
 ALTER TABLE `currency`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+    MODIFY `id` int (11) NOT NULL AUTO_INCREMENT;
+COMMIT;
+
+--
+-- AUTO_INCREMENT dla tabeli `currencyDenomination`
+--
+ALTER TABLE `currencyDenomination`
+    MODIFY `id` int (11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
